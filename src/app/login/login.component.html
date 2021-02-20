@@ -1,6 +1,13 @@
+<div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}
+</div>
 <div class="container">
-<small *ngIf='invalidLogin'>{{errorMessage}}</small>
-UserName:<input type="text" name="username" [(ngModel)]="username">
-Password:<input type="password" name="password" [(ngModel)]="password" >
-<input (click)=handleLogin() type="submit" class="btn btn-success" value="submit">
+    <br>
+    <div >
+        UserName:<input type="text" name="username" [(ngModel)]="username">
+        Password:<input type="password" name="password" [(ngModel)]="password" >
+        <!-- <input (click)=handleLogin() type="submit" class="btn btn-success" value="submit"> -->
+        <!-- <input (click)=handleLoginFromBackend() type="submit" class="btn btn-success" value="submit"> -->
+        <input (click)=handleLoginFromJWTBackend() type="submit" class="btn btn-success" value="submit">
+    </div>
+
 </div>

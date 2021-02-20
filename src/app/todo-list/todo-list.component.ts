@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AllusersService } from '../service/data/allusers.service';
 export class Todo{
   constructor(
     public id:number,
+    public username:string,
     public description:string,
     public targetDate:Date,
-    public isDone:boolean
+    public done:boolean
   ){}
 }
 @Component({
@@ -14,14 +17,41 @@ export class Todo{
 })
 export class TodoListComponent implements OnInit {
 
-  todos=[
-    new Todo(1,'mastercp',new Date(),false),
-    new Todo(2,'master full stack',new Date(),false),
-    new Todo(3,'learn engineering sub',new Date(),false)
-  ]
-  constructor() { }
+  todos:Todo[] | undefined
+  deleteSuccessMsg:string
+  constructor(private aut:AllusersService,private router:Router) { }
 
   ngOnInit(): void {
+     this.refreshTodos()
   }
-
+  refreshTodos()
+  {
+    this.aut.getAllUsersTodos().subscribe(
+      response => {this.todos=response
+      console.log(response)
+      }
+      
+    )
+  }
+  deleteById(todoId:number)
+  {
+    this.aut.deleteById(todoId).subscribe(
+      response=>{
+        console.log(response)
+        this.deleteSuccessMsg=`Todo ${todoId} Successfully Deleted`
+        this.refreshTodos()
+        
+      }
+    )
+  }
+  updateById(todoId:number)
+  {
+    this.router.navigate([`/todos/addorupdate/${todoId}`])
+    this.refreshTodos()
+  }
+  addById()
+  {
+    this.router.navigate(["/todos/addorupdate/-1"])
+    this.refreshTodos()
+  }
 }

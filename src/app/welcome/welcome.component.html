@@ -1,4 +1,9 @@
-<p>welcome {{welcome_string}}!</p>
+
 <div class="container">
+    welcome from Backend <h1 style="color:green;">{{welcome_string}}!</h1>
+    <button class="btn btn-primary" (click)="getWelcomeMessage()">Get welcome Message</button>
+    <br/>
+    <button class="btn btn-primary" (click)="getWelcomeMessageWithParam()">Get welcome Message with Param</button>
     <a routerLink="/mytodos">Access your todos</a>
+
 </div>
